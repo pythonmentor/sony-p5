@@ -171,16 +171,17 @@ class App:
             print("       Vous n'avez pas encore d'enregistrement"
                   " dans vos favoris. ;)")
         else:
-            print("      ----------------------------")
-            print("       Consultations des favoris :")
-            print("      ----------------------------\n")
+            print(Fore.YELLOW)
+            print("       ----------------------------")
+            print("        Consultations des favoris :")
+            print("       ----------------------------\n")
+            print(Fore.RESET)
             for line in result_1:
-                print(f"       {line[0]}  - Produit d'origine:"
-                      f" {line[2]} ({line[3].upper()})\n"
-                      f"            Produit substitué:"
-                      f" {line[5]} ({line[6].upper()})\n          "
-                      f"  Date             "
-                      f": {(line[7]).strftime('%Y-%m-%d %H:%M:%S'):>10}\n")
+                print(f"       {line[0]} - Choix_initial  : {line[1]}"
+                      "  ({line[2].upper()})\n"
+                      "           Produit_suggéré: {line[5]} "
+                      "({line[6].upper()})  "
+                      "Date: {line[7].strftime('%Y-%m-%d %H:%M:%S'):>10}\n")
 
     def quit_message(self):
         """quit the app."""

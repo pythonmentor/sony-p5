@@ -18,6 +18,7 @@ class DataMgt:
         self.my_database = mysql.connector.connect(**info_bdd)
         self.my_cursor = self.my_database.cursor()
         self.category_selected = ()
+        self.myresult_1 = None
 
     def get_all_cat(self):
         """retrieve all categories."""
@@ -40,7 +41,7 @@ class DataMgt:
         """retrieve a product and all the information associated with the
         id_product input."""
 
-        query = ("SELECT id_product, name, brand, id_category, nutriscore,"
+        query = ("name, brand, id_category, nutriscore,"
                  " description, store FROM Products "
                  "WHERE id_product = %s")
         self.my_cursor.execute(query, (id_product,))
@@ -54,16 +55,11 @@ class DataMgt:
         self.my_database = mysql.connector.connect(**info_bdd)
         self.my_cursor = self.my_database.cursor()
         query = (
-            "INSERT INTO Favorites (id_product_origin, product_origin_name,"
-            " product_origin_nutriscore, id_product_substitute,"
-            " product_substitute_name, product_substitute_nutriscore,"
+            "INSERT INTO Favorites (id_product_origin, id_product_substitute,"
             " request_date) "
-            "VALUES (%s, %s, %s, %s, %s, %s, %s)"
+            "VALUES (%s, %s, %s)"
         )
-        data = (product_origin[0], product_origin[1], product_origin[4],
-                product_substitute[0], product_substitute[1],
-                product_substitute[6], date_time
-                )
+        data = (product_origin[0], product_substitute[0], date_time)
         self.my_cursor.execute(query, data)
         self.my_database.commit()
 
@@ -71,8 +67,18 @@ class DataMgt:
         """retrieve all substitutes products saved in database."""
 
         self.my_cursor.execute(
-            "SELECT * FROM Favorites ORDER BY id_favorite DESC")
-        self.myresult_1 = self.my_cursor.fetchall()
+            "SELECT id_favorite, name, nutriscore, request_date"
+            " FROM Products"
+            " INNER JOIN favorites ON "
+            "products.id_product = favorites.id_product_substitute"
+            " UNION"
+            " SELECT id_favorite, name, nutriscore, request_date"
+            " FROM Products"
+            " INNER JOIN favorites ON "
+            "products.id_product = favorites.id_product_origin"
+            " ORDER BY id_favorite DESC")
+        myresult_0 = self.my_cursor.fetchall()
+        self.myresult_1 = [myresult_0[i] + myresult_0[i+1] for i in range(0, len(myresult_0), 2)]
         return self.myresult_1
 
     def suggest_substitute(self, product_origin):
