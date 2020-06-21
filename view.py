@@ -178,10 +178,10 @@ class App:
             print(Fore.RESET)
             for line in result_1:
                 print(f"       {line[0]} - Choix_initial  : {line[1]}"
-                      "  ({line[2].upper()})\n"
-                      "           Produit_suggéré: {line[5]} "
-                      "({line[6].upper()})  "
-                      "Date: {line[7].strftime('%Y-%m-%d %H:%M:%S'):>10}\n")
+                      f"  ({line[2].upper()})\n"
+                      f"           Produit_suggéré: {line[5]} "
+                      f"({line[6].upper()})  "
+                      f"Date: {line[7].strftime('%Y-%m-%d %H:%M:%S'):>10}\n")
 
     def quit_message(self):
         """quit the app."""
