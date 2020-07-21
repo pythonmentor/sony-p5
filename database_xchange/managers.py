@@ -112,17 +112,17 @@ class DataMgt:
 from datetime import datetime
 import mysql.connector
 
-from purebeurreapp.config import info_bdd
+from database_xchange.config import info_bdd
 
 
-class BaseRepository:
+class BaseManager:
 
     def __init__(self, db):
         self.db = db # db is also my_database with mysql-connector
         self.my_cursor = self.my_database.cursor()
         self.myresult = None
 
-class CategoryRepository(BaseRepository):
+class CategoryManager(BaseManager):
     # management of 
 
     def __init__(self, db):
@@ -135,7 +135,7 @@ class CategoryRepository(BaseRepository):
         self.myresult = self.my_cursor.fetchall()
         return self.myresult
 
-class ProductRepository(BaseRepository):
+class ProductManager(BaseManager):
     # management of 
 
     def __init__(self, db):
@@ -165,7 +165,7 @@ class ProductRepository(BaseRepository):
         pass
 
 
-class FavoriteRepository(BaseRepository):
+class FavoriteManager(BaseManager):
 
     def __init__(self, db):
         super().__init__(db)

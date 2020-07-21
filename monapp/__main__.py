@@ -35,3 +35,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# products = ProductManager.get_all()
+# products_by_category = ProductManager.get_all_by_category()
+# new_product = ProductManager.create("parameters created in managers")
