@@ -15,7 +15,7 @@ class Parser:
         self.products_list = []  # list of all the cleaned product
 
     def clean(self):
-        """clean the data from the api and return a list of product ready to be
+        """clean, filter and valid the data from the api and return a list of product ready to be
         upload to purebeurre database."""
 
         for category in range(len(param_categories)):
