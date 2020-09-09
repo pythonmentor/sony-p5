@@ -7,6 +7,8 @@ import mysql.connector
 from database_xchange.config import info_bdd
 from settings import param_categories
 
+# -tc- A quoi servent tes managers si tu ne t'en sert pas
+# -tc- pour l'insertion des données ?
 
 class Upload:
     """This class will populate the DB with cleaned data from the module
